@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-public class CustomFrame extends JPanel {
+public class CustomFrame extends JFrame{
 
 	/**
 	 * 

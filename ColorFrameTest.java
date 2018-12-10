@@ -1,4 +1,7 @@
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 public class ColorFrameTest {
 
@@ -8,9 +11,11 @@ public class ColorFrameTest {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(300, 200);
 		frame.setVisible(true);
-		ColorFrame newpath = new ColorFrame(frame);
-		newpath.createButtonPanel(frame);
-		newpath.createMenues(frame);
+		JPanel colorPanel = new JPanel();
+		frame.add(colorPanel,BorderLayout.CENTER);
+		ColorFrame newpath = new ColorFrame(frame,colorPanel);
+		newpath.createButtonPanel(frame,colorPanel);
+		newpath.createMenues(frame,colorPanel);
 	}
 
 }

@@ -1,7 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -19,27 +17,26 @@ public class ColorFrame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public ColorFrame(JFrame colorFrame) {
-		JPanel colorPanel = new JPanel();
-		colorFrame.add(colorPanel, BorderLayout.CENTER);
-
+	public ColorFrame(JFrame colorFrame,JPanel colorPanel) {
+		
+		colorPanel.setBackground(Color.YELLOW);
 	}
 
-	public void createButtonPanel(JFrame colorFrame) {
+	public void createButtonPanel(JFrame colorFrame,JPanel colorPanel) {
 		JPanel buttons = new JPanel();
 		colorFrame.add(buttons, BorderLayout.SOUTH);
-		buttons.add(makeButton("Red", 1));
-		buttons.add(makeButton("Blue", 2));
-		buttons.add(makeButton("Green", 3));
+		buttons.add(makeButton("Red", Color.RED,colorPanel));
+		buttons.add(makeButton("Blue", Color.BLUE,colorPanel));
+		buttons.add(makeButton("Green", Color.GREEN,colorPanel));
 
 	}
 
-	public JButton makeButton(String label, int color) {
+	public JButton makeButton(String label,final Color color, final JPanel colorPanel) {
 		JButton button = new JButton(label);
 		class MenuButtonListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
-				makeColorAction(color);
 				System.out.println(color);
+				colorPanel.setBackground(color);
 			}
 		}
 		ActionListener listener = new MenuButtonListener();
@@ -47,14 +44,14 @@ public class ColorFrame extends JFrame {
 		return button;
 	}
 
-	public JMenuItem makeMenuItem(String label, int color) {
+	public JMenuItem makeMenuItem(String label, final Color color,final JPanel colorPanel) {
 		JMenuItem item = new JMenuItem(label);
 		class MenuItemListener implements ActionListener {
 			public void actionPerformed(ActionEvent event) {
-				if (color == 6)
+				if (color == Color.YELLOW)
 					makeCustomAction();
 				else
-					makeColorAction(color);
+					colorPanel.setBackground(color);
 				System.out.println(color);
 			}
 		}
@@ -63,46 +60,25 @@ public class ColorFrame extends JFrame {
 		return item;
 	}
 
-	public void createMenues(JFrame colorFrame) {
+	public void createMenues(JFrame colorFrame,JPanel colorPanel) {
 		JMenuBar menuBar = new JMenuBar();
 		// colorFrame.add(menuBar);
 		colorFrame.setJMenuBar(menuBar);
 		JMenu menu = new JMenu("Background Color");
 		menuBar.add(menu);
-		menu.add(makeMenuItem("White", 4));
-		menu.add(makeMenuItem("Black", 5));
-		menu.add(makeMenuItem("Custom", 6));
+		menu.add(makeMenuItem("White", Color.WHITE,colorPanel));
+		menu.add(makeMenuItem("Black", Color.BLACK,colorPanel));
+		menu.add(makeMenuItem("Custom", Color.YELLOW,colorPanel));
 	}
 
-	public void paintComponent(Graphics g) {
-		super.paintComponents(g);
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setBackground(ggg);
-		colorPanel.setBackground(ggg);
-	}
 
-	public void makeColorAction(int color) {
-		if (color == 1) {
-			ggg = Color.RED;
-		} else if (color == 2) {
-			ggg = Color.BLUE;
-		} else if (color == 3) {
-			ggg = Color.GREEN;
-		} else if (color == 4) {
-			ggg = Color.WHITE;
-		} else if (color == 5) {
-			ggg = Color.BLACK;
-		}
-		colorPanel.setBackground(ggg);
-	}
+
+	
 
 	public void makeCustomAction() {
 		CustomFrame pathway = new CustomFrame(colorPanel);
 
 	}
 
-	private JPanel colorPanel;
 	private CustomFrame custom;
-
-	private Color ggg;
 }
